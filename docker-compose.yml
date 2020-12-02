@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+  mongodb:
+    image: 'bitnami/mongodb:3.6'
+    hostname: "mongodb"
+    restart: always
+    labels:
+      kompose.service.type: nodeport
+    ports:
+      - "27017:27017"
+    volumes:
+      - 'mongodb_data:/bitnami'
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      - MONGODB_ROOT_PASSWORD=admin123
+      - MONGODB_USERNAME=admin
+      - MONGODB_PASSWORD=safira123
+      - MONGODB_DATABASE=safira
+
+volumes:
+  mongodb_data:
+    driver: local
