@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: safira
+      username: admin
+      password: safira123
+      database: safira
+      port: 27017
+      host: localhost
