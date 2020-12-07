@@ -22,7 +22,6 @@ public class CustomerForm {
     private String firstName;
 
     @Getter
-    @Setter
     @NotNull @NotEmpty
     private String lastName;
 
