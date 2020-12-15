@@ -19,7 +19,6 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-
     @GetMapping
     public List<Customer> getCustomers() {
         return customerService.findAll();
