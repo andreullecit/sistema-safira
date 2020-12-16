@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerServiceTest {
+
     @Mock
     private CustomerRepository customerRepository;
 
@@ -43,12 +44,12 @@ public class CustomerServiceTest {
 
     @Test
     public void customerFoundForDelete(){
-        when(this.customerRepository.findById("2")).thenReturn(Optional.of(Customer.builder()
+        when(this.customerRepository.findById(idTest)).thenReturn(Optional.of(Customer.builder()
                 .firstName(firstNameTest)
                 .lastName(lastNameTest)
                 .build()));
 
-        boolean deleteCustomerResponse = this.customerService.deleteCustomer("2");
+        boolean deleteCustomerResponse = this.customerService.deleteCustomer(idTest);
         assertTrue(deleteCustomerResponse);
     }
 }
