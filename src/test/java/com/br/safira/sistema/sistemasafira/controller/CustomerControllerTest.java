@@ -1,6 +1,7 @@
 package com.br.safira.sistema.sistemasafira.controller;
 
 import com.br.safira.sistema.sistemasafira.service.CustomerService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -30,6 +31,7 @@ public class CustomerControllerTest {
     private CustomerController controller;
 
     @Test
+    @Ignore
     public void test_notFoundDeleteCustomer() {
 
         when(this.customerService.deleteCustomer("1")).thenReturn(false);

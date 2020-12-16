@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerServiceTest {
+
     @Mock
     private CustomerRepository customerRepository;
 
