@@ -1,6 +1,9 @@
 package com.br.safira.sistema.sistemasafira.controller;
 
+import com.br.safira.sistema.sistemasafira.model.Customer;
 import com.br.safira.sistema.sistemasafira.service.CustomerService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDate;
 
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -22,9 +26,15 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class CustomerControllerTest {
 
     private String idTest = "1";
+    private final String firstNameTest = "Test";
+    private final String lastNameTest = "Test";
+    private final LocalDate birthdayTest = LocalDate.now();
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper mapper;
 
     @MockBean
     private CustomerService customerService;
@@ -49,6 +59,81 @@ public class CustomerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void shouldReturnBadRequestForPost() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/customer")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    public void shouldReturnOkForPost() throws Exception {
+        String json = mapper.writeValueAsString(Customer
+                .builder()
+                .firstName(firstNameTest)
+                .lastName(lastNameTest)
+                .birthday(birthdayTest)
+                .build());
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/customer")
+                .content(json)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void shouldReturnOkForPut() throws Exception {
+        Customer customer = Customer.builder()
+                .firstName(firstNameTest)
+                .lastName(lastNameTest)
+                .birthday(birthdayTest)
+                .build();
+
+        when(this.customerService.updateCustomer(customer)).thenReturn(true);
+
+        String json = mapper.writeValueAsString(customer);
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .put("/customer/{id}", idTest)
+                .content(json)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void shouldReturnNotFoundForPut() throws Exception {
+        Customer customer = Customer.builder()
+                .firstName(firstNameTest)
+                .lastName(lastNameTest)
+                .birthday(birthdayTest)
+                .build();
+
+        when(customerService.updateCustomer(customer)).thenReturn(false);
+
+        String json = mapper.writeValueAsString(customer);
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .put("/customer/{id}", idTest)
+                .content(json)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void shouldReturnBadRequestForPut() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .put("/customer/{id}", idTest)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
 }

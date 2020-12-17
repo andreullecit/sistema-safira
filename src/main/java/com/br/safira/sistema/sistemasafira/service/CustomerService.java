@@ -31,7 +31,7 @@ public class CustomerService {
         return false;
     }
 
-    public  boolean updateCustomer(Customer customer){
+    public boolean updateCustomer(Customer customer){
         Optional<Customer> optional = customerRepository.findById(customer.getId());
         if(optional.isPresent()) {
             customerRepository.save(customer);

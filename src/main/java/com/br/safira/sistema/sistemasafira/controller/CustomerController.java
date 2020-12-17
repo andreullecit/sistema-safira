@@ -37,7 +37,7 @@ public class CustomerController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<Customer> updateCustomer(@PathVariable String id ,@RequestBody @Valid CustomerForm updatedCustomer) {
-        if(this.customerService.updateCustomer(this.convertRequestToModel(updatedCustomer))) {
+        if(this.customerService.updateCustomer(this.convertRequestToModel(updatedCustomer, id))) {
             return ResponseEntity.ok().build();
         }
 
@@ -58,6 +58,15 @@ public class CustomerController {
                 .firstName(customerRequest.getFirstName())
                 .lastName(customerRequest.getLastName())
                 .birthday(customerRequest.getBirthday())
+                .build();
+    }
+
+    private Customer convertRequestToModel(CustomerForm customerRequest, String id) {
+        return Customer.builder()
+                .firstName(customerRequest.getFirstName())
+                .lastName(customerRequest.getLastName())
+                .birthday(customerRequest.getBirthday())
+                .id(id)
                 .build();
     }
 
