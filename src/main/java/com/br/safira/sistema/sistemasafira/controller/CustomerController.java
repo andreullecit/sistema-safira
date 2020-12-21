@@ -1,6 +1,6 @@
 package com.br.safira.sistema.sistemasafira.controller;
 
-import com.br.safira.sistema.sistemasafira.controller.form.CustomerForm;
+import com.br.safira.sistema.sistemasafira.controller.request.CustomerRequest;
 import com.br.safira.sistema.sistemasafira.model.Customer;
 import com.br.safira.sistema.sistemasafira.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity addCustomer(@RequestBody @Valid CustomerForm customerRequest) {
+    public ResponseEntity addCustomer(@RequestBody @Valid CustomerRequest customerRequest) {
 
         customerService.saveCustomer(convertRequestToModel(customerRequest));
 
@@ -36,7 +36,7 @@ public class CustomerController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Customer> updateCustomer(@PathVariable String id ,@RequestBody @Valid CustomerForm updatedCustomer) {
+    public ResponseEntity<Customer> updateCustomer(@PathVariable String id ,@RequestBody @Valid CustomerRequest updatedCustomer) {
         if(this.customerService.updateCustomer(this.convertRequestToModel(updatedCustomer, id))) {
             return ResponseEntity.ok().build();
         }
@@ -53,7 +53,7 @@ public class CustomerController {
         return ResponseEntity.notFound().build();
     }
 
-    private Customer convertRequestToModel(CustomerForm customerRequest) {
+    private Customer convertRequestToModel(CustomerRequest customerRequest) {
         return Customer.builder()
                 .firstName(customerRequest.getFirstName())
                 .lastName(customerRequest.getLastName())
@@ -61,7 +61,7 @@ public class CustomerController {
                 .build();
     }
 
-    private Customer convertRequestToModel(CustomerForm customerRequest, String id) {
+    private Customer convertRequestToModel(CustomerRequest customerRequest, String id) {
         return Customer.builder()
                 .firstName(customerRequest.getFirstName())
                 .lastName(customerRequest.getLastName())

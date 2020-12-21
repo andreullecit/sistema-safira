@@ -1,4 +1,4 @@
-package com.br.safira.sistema.sistemasafira.controller.form;
+package com.br.safira.sistema.sistemasafira.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerForm {
+public class CustomerRequest {
 
     private LocalDate birthday;
 
