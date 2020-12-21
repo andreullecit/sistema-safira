@@ -1,5 +1,6 @@
 package com.br.safira.sistema.sistemasafira.controller;
 
+import com.br.safira.sistema.sistemasafira.controller.form.CustomerForm;
 import com.br.safira.sistema.sistemasafira.model.Customer;
 import com.br.safira.sistema.sistemasafira.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +30,7 @@ public class CustomerControllerTest {
     private final String firstNameTest = "Test";
     private final String lastNameTest = "Test";
     private final LocalDate birthdayTest = LocalDate.now();
+    private Customer customerTest;
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,6 +40,15 @@ public class CustomerControllerTest {
 
     @MockBean
     private CustomerService customerService;
+
+    @Before
+    public void setup() {
+        this.customerTest = Customer.builder()
+                .firstName(firstNameTest)
+                .lastName(lastNameTest)
+                .birthday(birthdayTest)
+                .build();
+    }
 
     @Test
     public void shouldReturnNotFoundForDelete() throws Exception {
@@ -72,12 +83,7 @@ public class CustomerControllerTest {
 
     @Test
     public void shouldReturnOkForPost() throws Exception {
-        String json = mapper.writeValueAsString(Customer
-                .builder()
-                .firstName(firstNameTest)
-                .lastName(lastNameTest)
-                .birthday(birthdayTest)
-                .build());
+        String json = mapper.writeValueAsString(customerTest);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/customer")
@@ -89,15 +95,11 @@ public class CustomerControllerTest {
 
     @Test
     public void shouldReturnOkForPut() throws Exception {
-        Customer customer = Customer.builder()
-                .firstName(firstNameTest)
-                .lastName(lastNameTest)
-                .birthday(birthdayTest)
-                .build();
+        when(customerService.updateCustomer(customerTest)).thenReturn(true);
 
-        when(this.customerService.updateCustomer(customer)).thenReturn(true);
+        customerTest.setId("1");
 
-        String json = mapper.writeValueAsString(customer);
+        String json = mapper.writeValueAsString(customerTest);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put("/customer/{id}", idTest)
@@ -109,15 +111,9 @@ public class CustomerControllerTest {
 
     @Test
     public void shouldReturnNotFoundForPut() throws Exception {
-        Customer customer = Customer.builder()
-                .firstName(firstNameTest)
-                .lastName(lastNameTest)
-                .birthday(birthdayTest)
-                .build();
+        when(customerService.updateCustomer(customerTest)).thenReturn(false);
 
-        when(customerService.updateCustomer(customer)).thenReturn(false);
-
-        String json = mapper.writeValueAsString(customer);
+        String json = mapper.writeValueAsString(customerTest);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put("/customer/{id}", idTest)
@@ -135,6 +131,5 @@ public class CustomerControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
-
 }
 
