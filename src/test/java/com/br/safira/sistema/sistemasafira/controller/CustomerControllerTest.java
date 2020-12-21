@@ -1,6 +1,5 @@
 package com.br.safira.sistema.sistemasafira.controller;
 
-import com.br.safira.sistema.sistemasafira.controller.form.CustomerForm;
 import com.br.safira.sistema.sistemasafira.model.Customer;
 import com.br.safira.sistema.sistemasafira.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
