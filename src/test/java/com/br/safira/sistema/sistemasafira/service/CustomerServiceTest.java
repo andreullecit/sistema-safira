@@ -8,8 +8,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.times;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 
@@ -51,5 +53,15 @@ public class CustomerServiceTest {
 
         boolean deleteCustomerResponse = this.customerService.deleteCustomer(idTest);
         assertTrue(deleteCustomerResponse);
+    }
+
+    @Test
+    public void customerSaved(){
+        Customer customer = Customer.builder().firstName(firstNameTest).build();
+        when(this.customerRepository.save(Mockito.any())).thenReturn(Mockito.any());
+
+        this.customerService.saveCustomer(Customer.builder().firstName(firstNameTest).build());
+
+        Mockito.verify(this.customerRepository, times(1)).save(customer);
     }
 }
