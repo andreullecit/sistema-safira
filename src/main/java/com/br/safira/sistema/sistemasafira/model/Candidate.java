@@ -27,5 +27,8 @@ public class Candidate {
 
     private String socialLinks;
 
+    private char status;
+
     private LocalDateTime createdAt;
-}
+
+ }
