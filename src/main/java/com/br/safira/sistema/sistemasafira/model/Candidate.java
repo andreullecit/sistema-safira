@@ -28,4 +28,5 @@ public class Candidate {
     private String socialLinks;
 
     private LocalDateTime createdAt;
-}
+
+ }
