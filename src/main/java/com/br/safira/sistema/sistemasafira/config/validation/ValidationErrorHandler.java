@@ -23,7 +23,7 @@ public class ValidationErrorHandler {
     private MessageSource messageSource;
 
     @Value("${VALIDATION_REQUIRED_FIELDS}")
-    private static String validationMessage;
+    private String validationMessage;
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
