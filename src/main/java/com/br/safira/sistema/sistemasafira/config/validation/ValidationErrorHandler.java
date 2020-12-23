@@ -30,7 +30,7 @@ public class ValidationErrorHandler {
     public String handle(MethodArgumentNotValidException exception) {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         StringBuilder message = new StringBuilder();
-        message.append(validationMessage);
+        message.append(validationMessage).append(" \\n");
         fieldErrors.forEach(e-> {
             message.append(e.getField()).append(", ");
         });
