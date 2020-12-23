@@ -30,4 +30,5 @@ public class Candidate {
     private char status;
 
     private LocalDateTime createdAt;
-}
+
+ }
