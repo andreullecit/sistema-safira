@@ -5,6 +5,10 @@ import com.br.safira.sistema.sistemasafira.repository.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.lang.management.OperatingSystemMXBean;
+import java.util.List;
+import java.util.Optional;
+
 @Component
 public class CandidateService {
 
@@ -12,7 +16,13 @@ public class CandidateService {
     CandidateRepository candidateRepository;
 
     public void saveCandidate(Candidate candidate) {
+
         this.candidateRepository.save(candidate);
+    }
+
+    public List<Candidate> findByStatus(char status){
+
+        return candidateRepository.findByStatus(status);
     }
 
 }
