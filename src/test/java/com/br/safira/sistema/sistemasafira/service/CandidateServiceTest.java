@@ -8,10 +8,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
+@DataMongoTest
 public class CandidateServiceTest {
 
     @Mock
@@ -29,4 +31,12 @@ public class CandidateServiceTest {
 
         Mockito.verify(this.candidateRepository, Mockito.times(1)).save(candidate);
     }
+
+    @Test
+    public void candidateListByStatus () {
+        this.candidateService.findByStatus('A');
+        Mockito.verify(this.candidateRepository, Mockito.times(1)).findByStatus('A');
+    }
+
+
 }
