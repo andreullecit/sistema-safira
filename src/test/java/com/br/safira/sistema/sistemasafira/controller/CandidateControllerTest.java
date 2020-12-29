@@ -1,7 +1,6 @@
 package com.br.safira.sistema.sistemasafira.controller;
 
-import com.br.safira.sistema.sistemasafira.model.Candidate;
-import com.br.safira.sistema.sistemasafira.model.Customer;
+import com.br.safira.sistema.sistemasafira.controller.request.CandidateRequest;
 import com.br.safira.sistema.sistemasafira.model.enums.Level;
 import com.br.safira.sistema.sistemasafira.service.CandidateService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +29,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 public class CandidateControllerTest {
 
-    private Candidate candidateTest;
+    private CandidateRequest candidateTest;
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,6 +40,16 @@ public class CandidateControllerTest {
     @MockBean
     private CandidateService candidateService;
 
+    @Before
+    public void setup() {
+        this.candidateTest = CandidateRequest.builder()
+                .fullName("Teste Teste")
+                .description("Desenvolvedor java")
+                .level(Level.Middle)
+                .proficiency(1)
+                .socialLinks("https://www.linkedin.com/")
+                .build();
+    }
 
     @Test
     public void shouldReturnOkWhenGettingByStatus() throws Exception {
