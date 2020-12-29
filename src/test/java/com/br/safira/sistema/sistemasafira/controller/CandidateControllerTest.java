@@ -1,6 +1,7 @@
 package com.br.safira.sistema.sistemasafira.controller;
 
 import com.br.safira.sistema.sistemasafira.model.Candidate;
+import com.br.safira.sistema.sistemasafira.model.Customer;
 import com.br.safira.sistema.sistemasafira.model.enums.Level;
 import com.br.safira.sistema.sistemasafira.service.CandidateService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +30,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 public class CandidateControllerTest {
 
+    private Candidate candidateTest;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -46,6 +49,27 @@ public class CandidateControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void shouldReturnOkForPost() throws Exception {
+        String json = mapper.writeValueAsString(candidateTest);
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/candidate")
+                .content(json)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void shouldReturnBadRequestForPost() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/candidate")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
 }
