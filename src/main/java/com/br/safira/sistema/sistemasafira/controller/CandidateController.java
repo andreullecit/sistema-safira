@@ -41,6 +41,5 @@ public class CandidateController {
     public ResponseEntity addCandidate(@RequestBody @Valid CandidateRequest candidateRequest) {
         candidateService.saveCandidate(convertRequestToModel(candidateRequest));
         return ResponseEntity.ok().build();
-
     }
 }
