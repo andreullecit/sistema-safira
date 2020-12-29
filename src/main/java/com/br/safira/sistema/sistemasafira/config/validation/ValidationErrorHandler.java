@@ -26,9 +26,7 @@ public class ValidationErrorHandler {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         StringBuilder message = new StringBuilder();
         message.append(validationMessage).append("\n");
-        fieldErrors.forEach(e-> {
-            message.append(e.getField()).append(", ");
-        });
+        fieldErrors.forEach(e -> message.append(e.getField()).append(", "));
         message.setCharAt(message.length()-2, '.');
         return message.toString();
     }
