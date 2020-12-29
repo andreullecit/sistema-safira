@@ -18,7 +18,7 @@ public class CandidateRequest {
 
     @NotNull @Pattern(regexp = "^([a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'])+([\\s])([\\s]|[a-zA-Z])*([a-zA-Z]+)$")
     private String fullName;
-    @NotNull @Pattern(regexp = "^([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'])+([\\s])([\\s]|[a-zA-Z0-9])*([a-zA-Z0-9]+)$")
+    @NotNull @Pattern(regexp = "^([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'])+([\\s])*([a-zA-Z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\w\\W]*)$")
     private String description;
 
     @NotNull
