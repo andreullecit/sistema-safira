@@ -17,9 +17,9 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class CandidateRequest {
 
-    @NotNull @Pattern(regexp = "^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$")
+    @NotNull @Pattern(regexp = "^([a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'])+([\\s])([\\s]|[a-zA-Z])*([a-zA-Z]+)$")
     private String fullName;
-    @NotNull @Pattern(regexp = "^[áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s\\w\\W]+$")
+    @NotNull @Pattern(regexp = "^([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'])+([\\s])([\\s]|[a-zA-Z0-9])*([a-zA-Z0-9]+)$")
     private String description;
 
     @NotNull
