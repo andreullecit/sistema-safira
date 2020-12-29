@@ -1,8 +1,6 @@
 package com.br.safira.sistema.sistemasafira.config.validation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -19,9 +17,6 @@ import java.util.List;
 @PropertySource("classpath:application.properties")
 public class ValidationErrorHandler {
 
-    @Autowired
-    private MessageSource messageSource;
-
     @Value("${VALIDATION_REQUIRED_FIELDS}")
     private String validationMessage;
 
@@ -30,10 +25,11 @@ public class ValidationErrorHandler {
     public String handle(MethodArgumentNotValidException exception) {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         StringBuilder message = new StringBuilder();
-        message.append(validationMessage).append(" \\n");
+        message.append(validationMessage).append("\n");
         fieldErrors.forEach(e-> {
             message.append(e.getField()).append(", ");
         });
+        message.setCharAt(message.length()-2, '.');
         return message.toString();
     }
 
