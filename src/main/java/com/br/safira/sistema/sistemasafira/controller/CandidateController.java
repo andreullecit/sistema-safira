@@ -4,6 +4,7 @@ import com.br.safira.sistema.sistemasafira.controller.request.CandidateRequest;
 import com.br.safira.sistema.sistemasafira.model.Candidate;
 import com.br.safira.sistema.sistemasafira.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,6 @@ public class CandidateController {
     @PostMapping
     public ResponseEntity addCandidate(@RequestBody @Valid CandidateRequest candidateRequest) {
         candidateService.saveCandidate(convertRequestToModel(candidateRequest));
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<String>("Candidato cadastrado com sucesso!", HttpStatus.CREATED);
     }
 }

@@ -14,14 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcResultMatchersDsl;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-
-import java.util.List;
-
-import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,6 +24,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class CandidateControllerTest {
 
     private CandidateRequest candidateTest;
+    private CandidateRequest candidateTestWithoutNameField;
 
     @Autowired
     private MockMvc mockMvc;
@@ -44,6 +39,13 @@ public class CandidateControllerTest {
     public void setup() {
         this.candidateTest = CandidateRequest.builder()
                 .fullName("Teste Teste")
+                .description("Desenvolvedor java")
+                .level(Level.Middle)
+                .proficiency(1)
+                .socialLinks("https://www.linkedin.com/")
+                .build();
+
+        this.candidateTestWithoutNameField = CandidateRequest.builder()
                 .description("Desenvolvedor java")
                 .level(Level.Middle)
                 .proficiency(1)
@@ -69,16 +71,21 @@ public class CandidateControllerTest {
                 .content(json)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.content().string("Candidato cadastrado com sucesso!"))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
     public void shouldReturnBadRequestForPost() throws Exception {
+        String json = mapper.writeValueAsString(candidateTestWithoutNameField);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/candidate")
+                .content(json)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("Erro no Cadastro do Candidato, por favor preencha os campos:\n" +
+                        "fullName. "));
     }
 
 }
