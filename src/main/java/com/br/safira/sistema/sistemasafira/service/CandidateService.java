@@ -17,6 +17,7 @@ public class CandidateService {
 
     public void saveCandidate(Candidate candidate) {
         candidate.setCreatedAt(LocalDateTime.now());
+        candidate.setStatus('A');
         this.candidateRepository.save(candidate);
     }
 
