@@ -5,7 +5,6 @@ import com.br.safira.sistema.sistemasafira.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +27,6 @@ public class CustomerService {
             customerRepository.deleteById(id);
             return true;
         }
-
         return false;
     }
 
@@ -38,7 +36,6 @@ public class CustomerService {
             customerRepository.save(customer);
             return true;
         }
-
         return false;
     }
 

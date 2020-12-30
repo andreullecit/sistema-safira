@@ -26,9 +26,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity addCustomer(@RequestBody @Valid CustomerRequest customerRequest) {
-
         customerService.saveCustomer(convertRequestToModel(customerRequest));
-
         return ResponseEntity.ok().build();
     }
 
@@ -40,7 +38,6 @@ public class CustomerController {
         if(this.customerService.updateCustomer(this.convertRequestToModel(updatedCustomer, id))) {
             return ResponseEntity.ok().build();
         }
-
         return ResponseEntity.notFound().build();
     }
 
