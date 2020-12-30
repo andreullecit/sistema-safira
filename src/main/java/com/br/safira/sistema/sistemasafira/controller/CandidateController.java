@@ -48,6 +48,6 @@ public class CandidateController {
         if(this.candidateService.deleteCandidate(id)){
             return new ResponseEntity<String>("Candidato excluido com sucesso!", HttpStatus.OK);
         }
-        return ResponseEntity.notFound().build();
+        return new ResponseEntity<String>("Candidato nao encontrado!", HttpStatus.NOT_FOUND);
     }
 }

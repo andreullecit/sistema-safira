@@ -111,7 +111,8 @@ public class CandidateControllerTest {
                 .delete("/candidate/{id}",idTest)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().string("Candidato nao encontrado!"));
     }
 }
 
