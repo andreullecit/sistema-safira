@@ -1,6 +1,7 @@
 package com.br.safira.sistema.sistemasafira.model;
 
 import com.br.safira.sistema.sistemasafira.model.enums.Level;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

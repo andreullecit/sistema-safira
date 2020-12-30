@@ -5,6 +5,7 @@ import com.br.safira.sistema.sistemasafira.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,6 @@ public class CustomerService {
     CustomerRepository customerRepository;
 
     public void saveCustomer(Customer customer){
-
         this.customerRepository.save(customer);
     }
 

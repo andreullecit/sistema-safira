@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.management.OperatingSystemMXBean;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class CandidateService {
     CandidateRepository candidateRepository;
 
     public void saveCandidate(Candidate candidate) {
-
+        candidate.setCreatedAt(LocalDateTime.now());
         this.candidateRepository.save(candidate);
     }
 
