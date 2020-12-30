@@ -6,11 +6,9 @@ import com.br.safira.sistema.sistemasafira.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -42,5 +40,14 @@ public class CandidateController {
     public ResponseEntity addCandidate(@RequestBody @Valid CandidateRequest candidateRequest) {
         candidateService.saveCandidate(convertRequestToModel(candidateRequest));
         return new ResponseEntity<String>("Candidato cadastrado com sucesso!", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> deleteCandidate(@PathVariable String id) {
+        if(this.candidateService.deleteCandidate(id)){
+            return new ResponseEntity<String>("Candidato excluido com sucesso!", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

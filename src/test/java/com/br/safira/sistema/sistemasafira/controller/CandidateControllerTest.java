@@ -17,6 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.powermock.api.mockito.PowerMockito.when;
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -34,6 +37,8 @@ public class CandidateControllerTest {
 
     @MockBean
     private CandidateService candidateService;
+
+    private String idTest="1";
 
     @Before
     public void setup() {
@@ -88,5 +93,25 @@ public class CandidateControllerTest {
                         "fullName. "));
     }
 
+    @Test
+    public void shouldReturnOkForDelete() throws Exception {
+        when(candidateService.deleteCandidate(this.idTest)).thenReturn(true);
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .delete("/candidate/{id}",idTest)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.content().string("Candidato excluido com sucesso!"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void shouldReturnBadRequestForDelete() throws Exception {
+        when(candidateService.deleteCandidate(this.idTest)).thenReturn(false);
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .delete("/candidate/{id}",idTest)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 }
 
