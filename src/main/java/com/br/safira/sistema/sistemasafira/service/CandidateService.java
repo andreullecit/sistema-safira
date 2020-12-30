@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Component
@@ -21,6 +22,16 @@ public class CandidateService {
 
     public List<Candidate> findByStatus(char status){
         return candidateRepository.findByStatus(status);
+    }
+
+    public boolean deleteCandidate(String id) {
+        Optional<Candidate> optional = candidateRepository.findById(id);
+        if(optional.isPresent()) {
+            candidateRepository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
 
 }
