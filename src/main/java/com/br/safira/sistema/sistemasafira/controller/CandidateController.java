@@ -20,6 +20,8 @@ public class CandidateController {
     @Autowired
     private CandidateService candidateService;
 
+    private String VARIAVEL = "TESTE";
+
     private Candidate convertRequestToModel(CandidateRequest candidateRequest) {
         return Candidate.builder()
                 .fullName(candidateRequest.getFullName())
@@ -48,6 +50,17 @@ public class CandidateController {
         if(this.candidateService.deleteCandidate(id)){
             return new ResponseEntity<String>("Candidato excluido com sucesso!", HttpStatus.OK);
         }
+        boolean verdadeiro = true;
+
+        if(verdadeiro == true || false ){
+            System.out.println("MEsma String ");
+            System.out.println("MEsma String ");
+            System.out.println("MEsma String ");
+            System.out.println(3 + 4);
+        }
+
+
+
         return new ResponseEntity<String>("Candidato nao encontrado!", HttpStatus.NOT_FOUND);
     }
 }
