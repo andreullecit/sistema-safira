@@ -3,11 +3,12 @@ pipeline {
 
     tools {
         maven "M3"
+        jdk "jdk11"
     }
     stages {
         stage('build') {
             steps {
-                sh 'java -version'
+                sh 'mvn clean install -DskipTests'
             }
         }
         stage('analyse') {
