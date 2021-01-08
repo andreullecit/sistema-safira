@@ -12,7 +12,7 @@ pipeline {
         }
         stage('analyse') {
             steps {
-                echo 'Analisei meu código com sonar'
+                echo 'mvn sonar:sonar -Dsonar.host.url=http://172.17.0.1:9000'
             }
         }
         stage('unit test') {
