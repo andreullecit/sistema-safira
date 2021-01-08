@@ -5,6 +5,7 @@ pipeline {
     agent any
 
     tools {
+        // Instale a feramenta global do Maven nas configurações do Jenkins, e coloque o nome de M3
         maven "M3"
     }
     stages {
