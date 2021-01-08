@@ -17,7 +17,7 @@ pipeline {
         }
         stage('unit test') {
             steps {
-                echo 'Testei meu código com jUnit'
+                echo 'mvn test -Dcoverage'
             }
         }
         stage('component test') {
