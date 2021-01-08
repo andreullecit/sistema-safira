@@ -17,7 +17,7 @@ pipeline {
         }
         stage('unit test') {
             steps {
-                echo 'mvn test -Dcoverage'
+                sh 'mvn test -Dcoverage'
             }
         }
         stage('component test') {
