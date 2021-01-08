@@ -1,9 +1,9 @@
 pipeline {
     agent any
     stages {
-        withMaven {
-            stage('build') {
-                steps {
+        stage('build') {
+            steps {
+                withMaven {
                     sh 'mvn --version'
                 }
             }
