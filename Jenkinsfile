@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'java -version'
             }
         }
         stage('analyse') {
