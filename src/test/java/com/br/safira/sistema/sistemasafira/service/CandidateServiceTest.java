@@ -56,7 +56,7 @@ public class CandidateServiceTest {
                 .build()));
 
         boolean deleteCandidateResponse = candidateService.deleteCandidate(idTest);
-        assertTrue(deleteCandidateResponse);
+        assertFalse(deleteCandidateResponse);
     }
 
     @Test

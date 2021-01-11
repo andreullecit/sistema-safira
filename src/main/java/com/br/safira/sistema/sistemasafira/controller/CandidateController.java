@@ -22,9 +22,7 @@ public class CandidateController {
 
     private Candidate convertRequestToModel(CandidateRequest candidateRequest) {
         return Candidate.builder()
-                .fullName(candidateRequest.getFullName())
-                .description(candidateRequest.getDescription())
-                .level(candidateRequest.getLevel())
+                .fullName(candidateRequest.getFullName()).description(candidateRequest.getDescription()).level(candidateRequest.getLevel())
                 .proficiency(candidateRequest.getProficiency())
                 .socialLinks(candidateRequest.getSocialLinks())
                 .build();
